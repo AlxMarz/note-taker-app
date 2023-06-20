@@ -32,6 +32,24 @@ app.get('/api/notes', (req, response) => {
 
 
 
+app.post('/api/notes', (req, res) => {
+  // Let the client know that their add note request was received
+  console.info(`${req.method} request received add notes`);
+  const {tittle, text} = req.body
+
+  if (req.body) {
+    const newNote = {
+      tittle,
+      text,
+    }
+    readAndAppend(newNote, './db/db.json');
+    res.status(201).json(response)
+  } else {
+    res.error('Error adding note');
+  }
+});
+
+
 
 app.listen(PORT, () =>
   console.log(`Example app listening at http://localhost:${PORT}`)
